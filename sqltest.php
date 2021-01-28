@@ -1,7 +1,8 @@
 <?php
 $servername = "cs3620sql.mysql.database.azure.com";
-$username = "cs3620admin@cs3620sql";
-$password = "p@ssw0rd";
+
+$username = $_ENV['SQLUSER'];
+$password = $_ENV['SQLPW'];
 $dbname = "cs3620_proj";
 
 // Create connection
