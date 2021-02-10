@@ -20,6 +20,8 @@ class UserDAO {
   }
 
   function createUser($user){
+
+
     require_once('./utilities/connection.php');
     
     $sql = "INSERT INTO cs3620_proj.user
@@ -37,6 +39,20 @@ class UserDAO {
     $result = $conn->query($sql);
 
     $conn->close();
+
+    echo "user created";
+  }
+
+  function deleteUser($un){
+    require_once('./utilities/connection.php');
+    
+    $sql = "DELETE FROM cs3620_proj.user WHERE username = '" . $un . "';";
+
+    $result = $conn->query($sql);
+
+    $conn->close();
+
+    echo "user deleted";
   }
 }
 ?>
