@@ -36,12 +36,23 @@ class User {
   function setLastName($last_name){
     $this->last_name = $last_name;
   }
+  function setPassword($password){
+    $this->password = hash("sha256", $password);
+  }
+  function getPassword(){
+    return $this->password;
+  }
 
   function getUser($user_id){
     $this->user_id = $user_id;
     $userDAO = new userDAO();
     $userDAO->getUser($this);
     return $this;
+  }
+
+  function createUser(){
+    $userDAO = new userDAO();
+    $userDAO->createUser($this);
   }
 }
 ?>
