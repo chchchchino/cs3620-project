@@ -1,7 +1,7 @@
 <?php
 require_once('./user/userDAO.php');
 
-class User {
+class User implements \JsonSerializable {
   // Properties
   private $user_id;
   private $username;
@@ -58,6 +58,11 @@ class User {
   function deleteUser($username){
     $userDAO = new userDAO();
     $userDAO->deleteUser($username);
+  }
+
+  public function jsonSerialize(){
+      $vars = get_object_vars($this);
+      return $vars;
   }
 }
 ?>
