@@ -40,26 +40,22 @@ class UserDAO {
 
   function createUser($user){
     require_once('./utilities/connection.php');
-    
-    $sql = "INSERT INTO cs3620_proj.user
-    (
-    `username`,
+
+    // prepare and bind
+    $stmt = $conn->prepare("INSERT INTO cs3620_proj.user (`username`,
     `password`,
     `first_name`,
-    `last_name`)
-    VALUES
-    ('" . $user->getUsername() . "',
-    '" . $user->getPassword() . "',
-    '" . $user->getFirstName() . "',
-    '" . $user->getLastName() . "'
-    );";
+    `last_name`) VALUES (?, ?, ?, ?)");
 
-    if ($conn->query($sql) === TRUE) {
-      echo "user created";
-    } else {
-      echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+    $un = $user->getUsername();
+    $pw = $user->getPassword();
+    $fn = $user->getFirstName();
+    $ln = $user->getLastName();
 
+    $stmt->bind_param("ssss", $un, $pw, $fn, $ln);
+    $stmt->execute();
+
+    $stmt->close();
     $conn->close();
   }
 
